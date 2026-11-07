@@ -1,4 +1,4 @@
 interface:
   display_name: "Git / GitHub 工作流"
-  short_description: "按项目功能配置看板与 README 协作入口，执行交办任务并中文同步"
-  default_prompt: "使用 $git-github-workflow 按项目实际功能接入看板、配置模块视图及 README 协作入口，或执行明确交办的任务；沿用 AGENTS.md，发布时机由我决定。"
+  short_description: "接入 GitHub 与开发看板，默认检查后自动中文提交同步，发布由用户决定"
+  default_prompt: "使用 $git-github-workflow 接入 GitHub 与开发看板，将检查通过后自动中文提交同步的默认长期约定写入 AGENTS.md，或完成已交办修改后的检查与同步；发布时机由我决定。"

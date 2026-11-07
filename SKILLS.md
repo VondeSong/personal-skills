@@ -24,7 +24,7 @@
 | `design-taste-frontend` | 界面与视觉 | 借鉴修改 | 源码备份 | tasteskill v2 | [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)；39 个文件可对应上游历史内容；本机另有 agents/openai.yaml，明确关闭隐式调用，属于需保留的个人配置。 |
 | `eagle-library-organizer` | 知识与归档 | 自己开发 | 源码备份 | — | 本机专用工作流、个人资料库或项目规则；未发现外部完整技能上游。 |
 | `explain-interface` | 界面与视觉 | 借鉴修改 | 源码备份 | — | [jakubkrehel/skills](https://github.com/jakubkrehel/skills)；2026-10-10 安装记录明确包含 Windows/Codex 适配；主文件新增 Host compatibility，保留定制源码。 |
-| `git-github-workflow` | 工程与开发 | 自己开发 | 源码备份 | — | 本会话与相关项目聊天建立并维护的个人 Git/GitHub 约定。 |
+| `git-github-workflow` | 工程与开发 | 自己开发 | 源码备份 | — | 本会话与相关项目聊天建立并维护的个人 Git/GitHub 约定；默认检查后自动中文提交同步，新项目接入自动写入 AGENTS.md，发布由用户决定。 |
 | `harness-wire-list` | 工程与开发 | 自己开发 | 源码备份 | — | 本机专用工作流、个人资料库或项目规则；未发现外部完整技能上游。 |
 | `hub-generate-flashcards` | 学习与标签 | 自己开发 | 源码备份 | — | 本机专用工作流、个人资料库或项目规则；未发现外部完整技能上游。 |
 | `hub-tag-steward` | 学习与标签 | 自己开发 | 源码备份 | — | 本机专用工作流、个人资料库或项目规则；未发现外部完整技能上游。 |
