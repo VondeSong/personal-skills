@@ -9,7 +9,7 @@ dependencies:
       value: "craft-car"
       description: "Craft MCP server for the user's Car space"
       transport: "streamable_http"
-      url: "https://mcp.craft.do/links/EK1dSrQQrF6/mcp"
+      url: "<CRAFT_CAR_MCP_URL>"
 
 policy:
   allow_implicit_invocation: true

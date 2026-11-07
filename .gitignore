@@ -3,6 +3,11 @@
 /.local/
 # Unmodified third-party skill; source and version are recorded in README.md
 /impeccable/
+/ip-as-logo/
+# Active per-machine connections; keep the redacted *.example.* files.
+config.local.json
+/craft-car-archive/agents/openai.yaml
+/craft-general-archive/agents/openai.yaml
 .serena/
 .qa/
 

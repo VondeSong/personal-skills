@@ -1,0 +1,17 @@
+{
+  "spaces": {
+    "Car": {
+      "folderName": "线束",
+      "mcpUrl": "<CRAFT_CAR_MCP_URL>",
+      "apiBase": "<CRAFT_CAR_API_BASE>"
+    },
+    "Archive": {
+      "mcpUrl": "<CRAFT_ARCHIVE_MCP_URL>",
+      "apiBase": "<CRAFT_ARCHIVE_API_BASE>"
+    },
+    "XV": {
+      "mcpUrl": "<CRAFT_XV_MCP_URL>",
+      "apiBase": "<CRAFT_XV_API_BASE>"
+    }
+  }
+}

@@ -9,17 +9,17 @@ dependencies:
       value: "craft-car"
       description: "Craft MCP server for the user's Car space"
       transport: "streamable_http"
-      url: "https://mcp.craft.do/links/EK1dSrQQrF6/mcp"
+      url: "<CRAFT_CAR_MCP_URL>"
     - type: "mcp"
       value: "craft-main"
       description: "Craft MCP server for the user's Archive space (formerly Main; connection identifier retained)"
       transport: "streamable_http"
-      url: "https://mcp.craft.do/links/I5Ly4BzJSBh/mcp"
+      url: "<CRAFT_ARCHIVE_MCP_URL>"
     - type: "mcp"
       value: "craft-xv"
       description: "Craft MCP server for the user's XV space"
       transport: "streamable_http"
-      url: "https://mcp.craft.do/links/Kf4WBH3zJz3/mcp"
+      url: "<CRAFT_XV_MCP_URL>"
 
 policy:
   allow_implicit_invocation: true

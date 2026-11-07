@@ -1,0 +1,10 @@
+{
+  "spaces": {
+    "Car": {
+      "folderName": "线束",
+      "mcpUrl": "<CRAFT_CAR_MCP_URL>",
+      "apiBase": "<CRAFT_CAR_API_BASE>",
+      "mcpPassword": "<CRAFT_CAR_MCP_PASSWORD>"
+    }
+  }
+}
