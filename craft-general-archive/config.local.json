@@ -1,0 +1,17 @@
+{
+  "spaces": {
+    "Car": {
+      "folderName": "线束",
+      "mcpUrl": "https://mcp.craft.do/links/EK1dSrQQrF6/mcp",
+      "apiBase": "https://connect.craft.do/links/6vlQGRqoVvq/api/v1"
+    },
+    "Archive": {
+      "mcpUrl": "https://mcp.craft.do/links/I5Ly4BzJSBh/mcp",
+      "apiBase": "https://connect.craft.do/links/59VQKF3kYwH/api/v1"
+    },
+    "XV": {
+      "mcpUrl": "https://mcp.craft.do/links/Kf4WBH3zJz3/mcp",
+      "apiBase": "https://connect.craft.do/links/4F75oallJDg/api/v1"
+    }
+  }
+}

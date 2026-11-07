@@ -1,0 +1,170 @@
+from __future__ import annotations
+
+import base64
+import importlib.util
+import sys
+import unittest
+import xml.etree.ElementTree as ET
+from datetime import date
+from pathlib import Path
+
+
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+SCRIPT_PATH = SKILL_ROOT / "scripts" / "github_star_history.py"
+SPEC = importlib.util.spec_from_file_location("github_star_history", SCRIPT_PATH)
+assert SPEC is not None and SPEC.loader is not None
+STAR_HISTORY = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = STAR_HISTORY
+SPEC.loader.exec_module(STAR_HISTORY)
+
+SKILL_TEXT = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+REFERENCE_TEXT = (SKILL_ROOT / "references" / "github-star-history.md").read_text(
+    encoding="utf-8"
+)
+ACTION_TEXT = (
+    SKILL_ROOT / ".github" / "actions" / "star-history" / "action.yml"
+).read_text(encoding="utf-8")
+WORKFLOW_TEXT = (
+    SKILL_ROOT / ".github" / "workflows" / "star-history.yml"
+).read_text(encoding="utf-8")
+CALLER_TEXT = (
+    SKILL_ROOT / ".github" / "workflows" / "update-star-history.yml"
+).read_text(encoding="utf-8")
+
+
+class MatchingFilesClient:
+    def __init__(self, light: bytes, dark: bytes) -> None:
+        self.light = light
+        self.dark = dark
+        self.calls = []
+
+    def request(self, method, path, **kwargs):
+        self.calls.append((method, path))
+        if path.endswith("/git/ref/heads/star-history"):
+            return {"object": {"sha": "existing-commit"}}, {}, 200
+        if "/contents/star-history.svg?" in path:
+            return {
+                "encoding": "base64",
+                "content": base64.b64encode(self.light).decode("ascii"),
+            }, {}, 200
+        if "/contents/star-history-dark.svg?" in path:
+            return {
+                "encoding": "base64",
+                "content": base64.b64encode(self.dark).decode("ascii"),
+            }, {}, 200
+        raise AssertionError("unexpected request: {} {}".format(method, path))
+
+
+class GitHubStarHistoryTests(unittest.TestCase):
+    def make_snapshot(self):
+        return STAR_HISTORY.StarSnapshot(
+            repository="CheshireMew/example",
+            created_on=date(2024, 1, 1),
+            star_dates=(
+                date(2024, 1, 2),
+                date(2024, 1, 2),
+                date(2024, 2, 20),
+            ),
+        )
+
+    def test_renderer_is_deterministic_valid_and_theme_specific(self) -> None:
+        snapshot = self.make_snapshot()
+        light = STAR_HISTORY.render_svg(snapshot, "light")
+        dark = STAR_HISTORY.render_svg(snapshot, "dark")
+
+        self.assertEqual(light, STAR_HISTORY.render_svg(snapshot, "light"))
+        light_root = ET.fromstring(light)
+        ET.fromstring(dark)
+        self.assertIn("Total: 3", light)
+        self.assertIn("#ffffff", light)
+        self.assertIn("#0d1117", dark)
+        self.assertIn('data-style="hand-drawn"', light)
+        self.assertIn("Comic Sans MS", light)
+        self.assertIn("GitHub Stars", light)
+        self.assertIn("project-steward", light)
+        self.assertIn("#f2380f", light)
+        star_line = next(
+            element
+            for element in light_root.iter()
+            if element.attrib.get("data-role") == "star-line"
+        )
+        self.assertIn(" L ", star_line.attrib["d"])
+        self.assertNotIn(" H ", star_line.attrib["d"])
+        self.assertNotIn(" V ", star_line.attrib["d"])
+        self.assertNotEqual(light, dark)
+
+    def test_zero_star_repository_still_has_a_complete_chart(self) -> None:
+        snapshot = STAR_HISTORY.StarSnapshot(
+            repository="CheshireMew/new-repository",
+            created_on=date(2026, 7, 31),
+            star_dates=(),
+        )
+        rendered = STAR_HISTORY.render_svg(snapshot, "light")
+
+        root = ET.fromstring(rendered)
+        self.assertIn("Total: 0", rendered)
+        star_line = next(
+            element
+            for element in root.iter()
+            if element.attrib.get("data-role") == "star-line"
+        )
+        path_parts = star_line.attrib["d"].split()
+        self.assertEqual(path_parts[2], path_parts[5])
+        self.assertNotIn("<circle", rendered)
+
+    def test_matching_outputs_do_not_create_a_commit(self) -> None:
+        snapshot = self.make_snapshot()
+        light = STAR_HISTORY.render_svg(snapshot, "light").encode("utf-8")
+        dark = STAR_HISTORY.render_svg(snapshot, "dark").encode("utf-8")
+        client = MatchingFilesClient(light, dark)
+
+        result = STAR_HISTORY.publish_snapshot(
+            client,
+            snapshot,
+            branch="star-history",
+            light_path="star-history.svg",
+            dark_path="star-history-dark.svg",
+            commit_message="test",
+        )
+
+        self.assertFalse(result.changed)
+        self.assertEqual(result.star_count, 3)
+        self.assertEqual(len(client.calls), 3)
+        self.assertTrue(all(method == "GET" for method, _ in client.calls))
+
+    def test_skill_routes_diagnosis_and_implementation_to_one_reference(self) -> None:
+        readme_section = SKILL_TEXT.split("## README 与主页", 1)[1].split(
+            "## 许可证治理", 1
+        )[0]
+        self.assertIn("references/github-star-history.md", readme_section)
+        self.assertIn("只读", readme_section)
+        self.assertIn("手动派发工作流后立即停止", readme_section)
+        self.assertIn("只有用户另行要求远端验收时", readme_section)
+        self.assertIn(
+            "公开 GitHub 仓库完整优化默认交付 Star History、Topics 与 About",
+            readme_section,
+        )
+        self.assertIn("完整 README 优化", REFERENCE_TEXT)
+        self.assertIn("默认交付，不等待用户再次点名 Star History", REFERENCE_TEXT)
+        self.assertIn("Star History 是目标仓库 README 与主页展示的独立优化结果", REFERENCE_TEXT)
+        self.assertIn("仅仅调用 Project Steward、要求它自我进化、进行项目综合审计", REFERENCE_TEXT)
+        self.assertIn("都不会触发本页", REFERENCE_TEXT)
+        self.assertIn("不能扩张到其它项目改动或 Project Steward 自我进化", REFERENCE_TEXT)
+        self.assertIn("不得把失败重新解释为“不需要”", REFERENCE_TEXT)
+        self.assertIn("github.token", REFERENCE_TEXT)
+        self.assertIn("60", REFERENCE_TEXT)
+
+    def test_public_workflow_keeps_credentials_in_the_caller_boundary(self) -> None:
+        combined = ACTION_TEXT + "\n" + WORKFLOW_TEXT + "\n" + CALLER_TEXT
+        self.assertIn("${{ github.token }}", WORKFLOW_TEXT)
+        self.assertIn("contents: write", WORKFLOW_TEXT)
+        self.assertIn("scripts/github_star_history.py", ACTION_TEXT)
+        self.assertIn("workflow_dispatch:", CALLER_TEXT)
+        self.assertIn("schedule:", CALLER_TEXT)
+        self.assertIn("uses: ./.github/workflows/star-history.yml", CALLER_TEXT)
+        self.assertNotIn("api.star-history.com", combined)
+        self.assertNotIn("personal access token", combined.lower())
+
+
+if __name__ == "__main__":
+    unittest.main()

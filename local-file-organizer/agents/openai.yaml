@@ -1,0 +1,6 @@
+interface:
+  display_name: "本地文件整理"
+  short_description: "按现有目录和文件用途整理下载文件，支持预览、核验、记录与撤销"
+  default_prompt: "使用 $local-file-organizer 检查 D 盘下载目录，按现有目录规则给出整理预览，不确定的文件保留原位。"
+policy:
+  allow_implicit_invocation: true

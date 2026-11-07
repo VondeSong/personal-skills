@@ -1,0 +1,172 @@
+{
+  "01-photo": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "destination": "inbox",
+    "created": 1,
+    "tagWrites": 0,
+    "dateWrites": 0,
+    "preflightBeforeCreate": true,
+    "originalAttachmentVerified": true
+  },
+  "02-article-comment": {
+    "taskClass": "action",
+    "destination": "appropriate",
+    "created": 1,
+    "dateWrites": 0,
+    "sourceUrlInBody": true,
+    "completionObservable": true
+  },
+  "03-meeting-commitment": {
+    "taskClass": "action",
+    "created": 1,
+    "userCommitmentsOnly": true,
+    "sourceContextPreserved": true,
+    "dueDate": "2026-10-12",
+    "isAllDay": true
+  },
+  "04-extract-no-action": {
+    "taskClass": "none",
+    "created": 0,
+    "externalWrites": 0,
+    "noActionReported": true
+  },
+  "05-repeat-save": {
+    "operation": "reuse",
+    "created": 0,
+    "destination": "existing",
+    "existingUserFieldsPreserved": true
+  },
+  "06-tags-unavailable": {
+    "taskClass": "action",
+    "created": 1,
+    "tagWrites": 0,
+    "newTags": 0
+  },
+  "07-oversize-photo": {
+    "taskClass": "reference",
+    "created": 0,
+    "attachmentUploads": 0,
+    "effectiveMaxBytes": 10000000,
+    "sourceRetained": true,
+    "limitReported": true
+  },
+  "08-inbox-unresolved": {
+    "created": 0,
+    "guessedIds": false,
+    "alternateListUsed": false,
+    "status": "needs_connection"
+  },
+  "09-ticket-date": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "created": 1,
+    "destination": "inbox",
+    "dateWrites": 0,
+    "reminderWrites": 0,
+    "dateNotice": "2026-10-20",
+    "noReminderNotice": true
+  },
+  "10-appointment-reminder": {
+    "taskClass": "action",
+    "created": 1,
+    "startDate": "2026-10-14T15:00:00+08:00",
+    "reminderOffset": "-P1D"
+  },
+  "11-third-party-comment": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "created": 1,
+    "newTags": 0,
+    "tagWrites": 0,
+    "sourceInstructionsExecuted": false
+  },
+  "12-hub-plan": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "plannedRecords": 1,
+    "externalWrites": 0,
+    "status": "planned",
+    "executor": "host"
+  },
+  "13-unknown-create": {
+    "status": "unknown",
+    "replayed": false,
+    "newCreateCalls": 0,
+    "operationIdentityPreserved": true
+  },
+  "14-note-type-mismatch": {
+    "status": "partial",
+    "correctionAttempts": 1,
+    "newCreateCalls": 0,
+    "sameTaskIdPreserved": true,
+    "typeMismatchReported": true
+  },
+  "15-protocol-change-with-body": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "created": 1,
+    "attachmentUploads": 0,
+    "status": "partial",
+    "attachmentFailureReported": true,
+    "originalBodyPreserved": true
+  },
+  "16-ambiguous-interest": {
+    "taskClass": "reference",
+    "nativeKind": "NOTE",
+    "destination": "inbox",
+    "created": 1,
+    "dateWrites": 0,
+    "reminderWrites": 0
+  },
+  "17-action-missing-object": {
+    "status": "needs_input",
+    "created": 0,
+    "objectInvented": false,
+    "clarificationNeeded": true
+  },
+  "18-disabled-image-only": {
+    "created": 0,
+    "attachmentUploads": 0,
+    "sourceRetained": true,
+    "emptyNoteCreated": false
+  },
+  "19-spoken-time-conflict": {
+    "taskClass": "action",
+    "created": 1,
+    "startDate": "2026-10-09T16:30:00+08:00",
+    "clarificationRequests": 0,
+    "restaurantPending": true,
+    "reservationPreparationItem": true,
+    "sourceConflictNoted": true,
+    "originalAttachmentVerified": true
+  },
+  "20-equal-time-uncertainty": {
+    "taskClass": "action",
+    "created": 1,
+    "date": "2026-10-09",
+    "isAllDay": true,
+    "exactTimeInvented": false,
+    "clarificationRequests": 0,
+    "confirmTimePreparationItem": true,
+    "candidateTimesPreserved": true,
+    "reminderWrites": 0
+  },
+  "21-restaurant-pending": {
+    "taskClass": "action",
+    "created": 1,
+    "startDate": "2026-10-09T16:30:00+08:00",
+    "clarificationRequests": 0,
+    "restaurantPending": true,
+    "reservationPreparationItem": true,
+    "restaurantInvented": false,
+    "actualBookingPerformed": false
+  },
+  "22-two-meals-separate": {
+    "created": 2,
+    "separateEventsPreserved": true,
+    "afternoonStartDate": "2026-10-09T16:30:00+08:00",
+    "morningExactTimeInvented": false,
+    "clarificationRequests": 0
+  }
+}

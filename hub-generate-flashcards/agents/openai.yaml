@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hub Deep Flashcards"
+  short_description: "Create source-grounded cards with full context and useful images"
+  default_prompt: "Use $hub-generate-flashcards to cover my selected material across focused questions, complete explanations, and useful source images; verify material and recall coverage separately, then submit or export drafts."

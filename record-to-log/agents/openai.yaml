@@ -1,0 +1,8 @@
+interface:
+  display_name: "记录整理为日志"
+  short_description: "整理随手、工作与生活记录，保留事实和状态，便于日后阅读与 AI 检索"
+  default_prompt: "Use $record-to-log to turn my rough notes into a concise, source-faithful log with clear dates, subjects, and outcomes; mark uncertainty, adapt the format to the situation, and save only with authorization covering this material."
+
+policy:
+  allow_implicit_invocation: true
+

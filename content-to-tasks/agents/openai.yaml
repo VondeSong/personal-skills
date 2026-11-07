@@ -1,0 +1,4 @@
+interface:
+  display_name: "素材转滴答任务"
+  short_description: "有行动意图的素材转为任务，无行动意图则存为收件箱笔记并保留原件"
+  default_prompt: "使用 $content-to-tasks 处理我提供的素材，按技能决策规则完成已授权的保存，并报告实际结果。"

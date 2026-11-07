@@ -1,0 +1,3 @@
+interface:
+  display_name: "Eagle 资源库整理"
+  short_description: "分析当前 Eagle 库，规划并整理文件夹与标签"

@@ -1,0 +1,29 @@
+{
+  "contractVersion": "content-to-tasks-hub-v3",
+  "didaPolicyVersion": "inbox-notes-v2",
+  "mode": "plan_only",
+  "executor": "host",
+  "operationId": "example-save-001",
+  "itemId": "example-photo-001",
+  "contentRevision": "example-revision-1",
+  "destination": {
+    "accountId": "example-account",
+    "libraryId": "example-dida-copy",
+    "allowedProjectIds": ["example-inbox"]
+  },
+  "source": {"title": "海面日落", "urls": []},
+  "status": "planned",
+  "tasks": [{
+    "localId": "note-1", "taskClass": "reference", "operation": "create",
+    "task": {"title": "海面日落", "projectId": "example-inbox", "kind": "NOTE", "content": "", "status": 0},
+    "sourceEvidence": ["用户要求：把这张照片归档到滴答清单；图片无行动指令。"],
+    "explicit_fields": {}, "verified": false
+  }],
+  "attachments": [{
+    "sourceId": "example-original-1", "localTaskId": "note-1",
+    "name": "sunset.png", "required": true, "state": "planned"
+  }],
+  "verification": {"readBack": false},
+  "issues": [],
+  "reason": "保存原图为收件箱笔记。宿主先完成原件预检，再创建笔记、上传并回读。"
+}

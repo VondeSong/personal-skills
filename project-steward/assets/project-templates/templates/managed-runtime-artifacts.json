@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "managed-runtime-artifacts",
+  "version": "1.3.0",
+  "layer": "capability",
+  "name": "Managed runtime artifacts",
+  "description": "Preflight, ownership, reuse, budget, and finalization contracts for storage-intensive production projects.",
+  "requires": [
+    "base"
+  ],
+  "detection": {
+    "explicit_only": true
+  },
+  "defaults": {
+    "decisions": {
+      "runtime_artifact_roots": "project-or-environment-owned",
+      "runtime_artifact_external_root_ownership": "approved-root-and-project-namespace",
+      "runtime_artifact_preflight": "required-and-blocking",
+      "runtime_artifact_reuse": "content-addressed-where-repeatable",
+      "runtime_artifact_finalization": "owned-inventory-required",
+      "runtime_artifact_cleanup": "report-until-authorized"
+    }
+  },
+  "invariants": [
+    {
+      "id": "runtime-artifact-preflight-before-write",
+      "title": "Budget before the first large write",
+      "statement": "Every storage-intensive producer enumerates all owned roots, proves project-root or registered external-root ownership, estimates peak allocation, checks filesystem-allocated bytes and free-space headroom, and blocks before creating a large artifact when any input is unknown.",
+      "preflight": [
+        "Name the producer, formal consumers, registered-roots inventory source, root ownership, artifact classes, estimate, allocated-bytes source, managed-object identity, terminal manifest, capacity source, and interruption outcome.",
+        "Run the project storage review before executing the producer."
+      ],
+      "evidence": [
+        "An over-budget run or a run with unknown allocated-byte evidence creates no large file.",
+        "Sparse or compressed fixtures report logical and filesystem-allocated bytes separately across all registered roots.",
+        "A registered external root resolves below its approved root and stable project namespace; missing or invalid configuration never causes a sibling drive-root, repository-neighbor, or arbitrary-path fallback."
+      ]
+    },
+    {
+      "id": "runtime-artifact-owned-finalization",
+      "title": "Every retained byte has an owner and terminal state",
+      "statement": "Successful, failed, and interrupted runs publish an owned inventory that separates truth, deliverables, caches, temporary files, evidence, and cleanup candidates.",
+      "preflight": [
+        "Define the manifest owner and terminal states before production.",
+        "Define whether cleanup is report-only or explicitly authorized."
+      ],
+      "evidence": [
+        "The final inventory matches the real filesystem delta.",
+        "Unknown, active, and unowned paths never enter cleanup candidates."
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "runtime-artifact-contract-present",
+      "type": "production_storage_contract",
+      "path": ".project-steward/storage-contract.json",
+      "severity": "error",
+      "message": "Storage contract declarations must pass static review before adoption; runtime verification remains separate."
+    },
+    {
+      "id": "runtime-artifact-preflight-decision",
+      "type": "profile_value",
+      "path": "decisions.runtime_artifact_preflight",
+      "allowed": [
+        "required-and-blocking"
+      ],
+      "severity": "error",
+      "message": "Large writes must be blocked until deterministic storage preflight passes."
+    },
+    {
+      "id": "runtime-artifact-cleanup-decision",
+      "type": "profile_value",
+      "path": "decisions.runtime_artifact_cleanup",
+      "allowed": [
+        "report-until-authorized"
+      ],
+      "severity": "error",
+      "message": "Cleanup remains report-only until exact targets are authorized."
+    }
+  ],
+  "manual_verification": [
+    {
+      "id": "runtime-artifact-real-producer-chain",
+      "title": "Real producer storage chain",
+      "steps": [
+        "Run the real producer once from its public entry and inspect the owned filesystem inventory.",
+        "Prove every configured external root resolves below the approved root and stable project namespace, and that its formal consumer reads the terminal manifest.",
+        "Run the same content identity again and prove the large reusable object was not duplicated.",
+        "Run with an intentionally insufficient budget and prove rejection occurs before the first large file."
+      ]
+    },
+    {
+      "id": "runtime-artifact-interruption-chain",
+      "title": "Interrupted producer ownership",
+      "steps": [
+        "Interrupt a controlled production run after its manifest exists.",
+        "Prove the owner is no longer active and the remaining objects are reported without automatic deletion."
+      ]
+    }
+  ]
+}

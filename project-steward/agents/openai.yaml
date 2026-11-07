@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Steward"
+  short_description: "按需处理架构冲突、系统性返工和阶段验收；日常开发不自动启用"
+  default_prompt: "使用 $project-steward 对当前项目做阶段验收，只加载相关方法，按既有计划核对证据与关键缺口。"
+
+policy:
+  allow_implicit_invocation: true

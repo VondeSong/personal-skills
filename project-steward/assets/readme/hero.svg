@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="240" height="240" viewBox="0 0 240 240"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Project Steward logo</title>
+  <desc id="desc">A deep green shield with a white two-leaf sprout.</desc>
+
+  <path id="steward-boundary"
+        d="M120 10C91 23 60 34 30 43V96C30 156 63 195 120 230C177 195 210 156 210 96V43C180 34 149 23 120 10Z"
+        fill="#00614B"/>
+
+  <path id="steward-sprout"
+        d="M120 149C117 132 118 113 106 95C96 80 80 73 59 69C55 91 58 109 74 121C89 133 108 133 114 151V197C114 201 125 201 125 197V156C125 138 131 129 149 121C174 110 187 91 183 62C158 66 140 73 130 89C119 105 121 129 120 149Z"
+        fill="#FFFFFF"/>
+</svg>

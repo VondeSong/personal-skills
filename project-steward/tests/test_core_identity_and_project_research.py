@@ -1,0 +1,650 @@
+from __future__ import annotations
+
+import shutil
+import subprocess
+import tempfile
+import unittest
+import zipfile
+from pathlib import Path
+
+
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+
+
+def read_reference(name: str, *companions: str) -> str:
+    text = (SKILL_ROOT / "references" / name).read_text(encoding="utf-8")
+    return text + "".join(
+        (SKILL_ROOT / "references" / companion).read_text(encoding="utf-8")
+        for companion in companions
+    )
+
+
+SKILL_TEXT = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+AGENT_TEXT = (
+    SKILL_ROOT / "agents" / "openai.yaml"
+).read_text(encoding="utf-8")
+PROJECT_RESEARCH_TEXT = (
+    SKILL_ROOT / "references" / "project-research.md"
+).read_text(encoding="utf-8")
+EFFECTIVENESS_TEXT = (
+    SKILL_ROOT / "references" / "project-effectiveness-review.md"
+).read_text(encoding="utf-8")
+CI_EXECUTION_TEXT = (
+    SKILL_ROOT / "references" / "ci-execution-governance.md"
+).read_text(encoding="utf-8")
+
+
+class CoreIdentityTests(unittest.TestCase):
+    def test_default_identity_is_learning_prevention_and_governance(self) -> None:
+        router = SKILL_TEXT.split("## 角色与路由", 1)[1].split(
+            "## 共同边界",
+            1,
+        )[0]
+        for fragment in (
+            "保存跨项目可复用的治理方法",
+            "同一请求中的独立结果分别建账",
+            "对话学习与自我进化",
+            "改动前预防",
+            "根因治理",
+            "项目综合审计",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, router)
+
+        self.assertNotIn("默认执行只读的项目综合审计", SKILL_TEXT)
+        self.assertIn(
+            "用户和机器的可变工具事实留在项目与 Skill 之外的环境档案中",
+            router,
+        )
+
+    def test_main_router_places_core_loop_before_specialties_and_audit(
+        self,
+    ) -> None:
+        router = SKILL_TEXT.split("## 角色与路由", 1)[1].split(
+            "## 共同边界",
+            1,
+        )[0]
+
+        ordered = (
+            "对话学习与自我进化。",
+            "改动前预防。",
+            "根因治理。",
+            "项目研究与讲解。",
+            "README 与主页。",
+            "人性化日志。",
+            "用户环境档案与执行环境。",
+            "项目综合审计。",
+        )
+        positions = [router.index(fragment) for fragment in ordered]
+        self.assertEqual(positions, sorted(positions))
+
+    def test_bare_repository_explains_value_and_minimum_mechanism(self) -> None:
+        self.assertIn(
+            "看懂仓库、目录或源码包",
+            SKILL_TEXT,
+        )
+
+        research_section = SKILL_TEXT.split(
+            "## 项目研究与讲解", 1
+        )[1].split("## 项目基线与模板", 1)[0]
+        self.assertIn(
+            "references/project-research.md",
+            research_section,
+        )
+        self.assertIn(
+            r"E:\Work\BaiduSyncdisk\Code\Example",
+            research_section,
+        )
+        self.assertIn("项目解决什么问题、用户得到什么、什么时候有用", PROJECT_RESEARCH_TEXT)
+        self.assertIn("达到对应结果后返回上层主流程", PROJECT_RESEARCH_TEXT)
+        self.assertIn(
+            "-DestinationRoot <目标根>",
+            research_section,
+        )
+        self.assertIn(
+            "上层已经选择实际效果、可靠性、上下文噪音、适用性或采用判断时",
+            PROJECT_RESEARCH_TEXT,
+        )
+        for fragment in (
+            "默认结果不是只讲用途",
+            "最小机制闭环",
+            "用户动作 → 入口 → 决策或编排者 → 实际执行者 → 存储或外部边界 → 正式消费者 → 用户可见结果",
+            "谁决定下一步、谁真正执行",
+            "机制确实不同的必要分支",
+            "框架名称和模块清单不能代替原理说明",
+            "项目宣传比源码更强",
+            "源码能证明到哪一层",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, PROJECT_RESEARCH_TEXT)
+
+        self.assertNotIn(
+            "默认看懂项目只形成用途与使用情境说明",
+            PROJECT_RESEARCH_TEXT,
+        )
+        ordered = (
+            "先找出项目带来的价值变化",
+            "默认结果不是只讲用途",
+            "最小机制闭环",
+            "默认看懂仍不等于完整架构审计",
+        )
+        positions = [PROJECT_RESEARCH_TEXT.index(fragment) for fragment in ordered]
+        self.assertEqual(positions, sorted(positions))
+        self.assertIn("用户明确点名时仍可使用下列其它能力", SKILL_TEXT)
+        self.assertNotIn("one-off explanation", SKILL_TEXT)
+
+    def test_source_archive_research_preparation_needs_no_extra_confirmation(
+        self,
+    ) -> None:
+        common_boundaries = SKILL_TEXT.split("## 共同边界", 1)[1].split(
+            "## 对话学习与自我进化",
+            1,
+        )[0]
+        for fragment in (
+            "解压是进入只读研究所需的材料准备，不是项目正式写入",
+            "独立避重名目录",
+            "无需额外取得解压确认",
+            "只授权创建研究副本和读取其内容",
+            "安装依赖或解压工具",
+            "移动或删除原文件",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, common_boundaries)
+
+        research_section = SKILL_TEXT.split(
+            "## 项目研究与讲解", 1
+        )[1].split("## 项目基线与模板", 1)[0]
+        self.assertIn("scripts/extract_project_archive.ps1", research_section)
+        self.assertIn("-DestinationRoot <目标根>", research_section)
+        self.assertIn(
+            r"E:\Work\BaiduSyncdisk\Code\Example",
+            research_section,
+        )
+
+    def test_validation_depth_follows_change_risk(self) -> None:
+        common_boundaries = SKILL_TEXT.split("## 共同边界", 1)[1].split(
+            "## 对话学习与自我进化",
+            1,
+        )[0]
+        for fragment in (
+            "验证按改动风险选择层级",
+            "references/ci-execution-governance.md",
+            "最近一次已完成的公开仓库失败",
+            "直接覆盖本次改动和验收主张的目标检查",
+            "其它平台、完整回归、远端 CI 与真实用户链",
+            "用户明确要求、代码冻结或目标检查证明系统性影响时才进入",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, common_boundaries)
+
+        for fragment in (
+            "文档、许可证、致谢和纯仓库元数据变化只选择相应维护入口",
+            "公共合同、核心运行时、跨平台能力、跨仓库边界和发布承诺",
+            "完整覆盖率、完整端到端矩阵、性能与视觉矩阵、打包、签名和发布检查",
+            "累计预计超过十五分钟就作为长验证",
+        ):
+            with self.subTest(method_fragment=fragment):
+                self.assertIn(fragment, CI_EXECUTION_TEXT)
+
+    def test_discovery_and_entry_gate_limit_automatic_use(self) -> None:
+        description = SKILL_TEXT.split("description:", 1)[1].split("\n", 1)[0]
+        routing = SKILL_TEXT.split("## 角色与路由", 1)[1].split("## 共同边界", 1)[0]
+        gate = routing.split("启用后按结果选路", 1)[0]
+        for trigger in ("架构冲突", "系统性返工", "阶段验收"):
+            with self.subTest(trigger=trigger):
+                self.assertIn(trigger, description)
+                self.assertIn(trigger, AGENT_TEXT)
+        for exclusion in ("日常实现", "局部修复", "常规重构", "构建测试", "进度查询"):
+            with self.subTest(exclusion=exclusion):
+                self.assertIn(exclusion, description)
+                self.assertIn(exclusion, gate)
+        self.assertIn("不构成触发", gate)
+        self.assertIn("不加载全部治理流程", gate)
+        self.assertIn("相关结果关闭后退出", gate)
+        self.assertIn("未命中则继续原任务", gate)
+        self.assertIn("用户明确点名时仍可使用下列其它能力", gate)
+        self.assertIn("allow_implicit_invocation: true", AGENT_TEXT)
+        self.assertIn("使用 $project-steward 对当前项目做阶段验收", AGENT_TEXT)
+        self.assertIn("只加载相关方法", AGENT_TEXT)
+        self.assertNotIn("understand or organize a codebase", description)
+
+    def test_complete_capability_absorption_has_a_bounded_research_handoff(
+        self,
+    ) -> None:
+        research_section = SKILL_TEXT.split(
+            "## 项目研究与讲解", 1
+        )[1].split("## 项目基线与模板", 1)[0]
+        for fragment in (
+            "完整研究或能力采用",
+            "references/project-research.md",
+            "references/project-effectiveness-review.md",
+            "references/project-research-report.md",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, research_section)
+
+        for fragment in (
+            "只有用户明确要求完整阅读参考项目",
+            "完整覆盖边界",
+            "规范真源、手工维护来源与派生视图",
+            "名称、别名和示例只负责发现",
+            "目标项目的用户结果与唯一边界",
+            "候选能力在目标项目中属于核心对象、现有对象操作、获取渠道、视图或筛选、状态反馈还是可选集成",
+            "建议入口：现有统一入口 / 对象内行动 / 次级入口 / 独立工作区 / 不采用",
+            "来源项目存在某个导航项、独立页面、显眼按钮",
+            "与现有对象共享同一组保存、查找、编辑、删除、恢复和交付行为",
+            "独立且反复发生的结果、关键决定、生命周期或恢复路径",
+            "会改变专业判断与结果的构成性细节",
+            "目标项目已经有相同职责、对象或入口",
+            "不能证明具体细节已经存在",
+            "具体细节已经存在、只有大方向、值得吸收的新细节、不吸收",
+            "只要求“看看有哪些值得吸收”时保持只读",
+            "不自行创建目标 schema、资源、兼容层或演示实现",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, PROJECT_RESEARCH_TEXT)
+
+        self.assertIn(
+            "普通项目介绍、一般比较和只问“它能做什么”继续读取最少够用的材料",
+            PROJECT_RESEARCH_TEXT,
+        )
+
+        common_boundaries = SKILL_TEXT.split("## 共同边界", 1)[1].split(
+            "## 对话学习与自我进化",
+            1,
+        )[0]
+        for fragment in (
+            "先完成独立结果拆分和必要的因果排序",
+            "遮住来源检查目标能否认出同一条件",
+            "只有上位治理框架算部分具备",
+            "完成逐项比较后才提炼共同机制和特殊维度",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, common_boundaries)
+
+    def test_adoption_implementation_reuses_one_bounded_decision_ledger(
+        self,
+    ) -> None:
+        research_route = SKILL_TEXT.split(
+            "## 项目研究与讲解",
+            1,
+        )[1].split("## 项目基线与模板", 1)[0]
+        for fragment in (
+            "后续“开始吧”或实施请求",
+            "按稳定身份与接受状态继续消费",
+            "交给改动前预防",
+            "不能把独立发现扩成实施范围",
+        ):
+            with self.subTest(route_fragment=fragment):
+                self.assertIn(fragment, research_route)
+
+        absorption = PROJECT_RESEARCH_TEXT.split(
+            "### 完整能力吸收研究",
+            1,
+        )[1].split("## 6. 用人话完成解释", 1)[0]
+        mapping = absorption.split(
+            "随后把来源能力逐项映射到目标项目：",
+            1,
+        )[1].split("```text", 1)[1].split("```", 1)[0]
+        ordered = (
+            "候选稳定身份",
+            "不可弱化的用户结果与验收子项",
+            "建议实现机制与允许替代方案",
+            "当前处置：建议 / 已接受 / 已拒绝 / 待确认",
+            "获准实施范围及其必需依赖闭包",
+            "独立发现、范围外问题与重新授权条件",
+            "有意偏离、重新分类或受阻条件及其确认来源",
+            "各验收子项的完成证据与最终状态",
+        )
+        positions = [mapping.index(fragment) for fragment in ordered]
+        self.assertEqual(positions, sorted(positions))
+
+        for fragment in (
+            "不自动等于实施授权",
+            "对唯一一组紧邻的建议说“开始吧”“实施上述”",
+            "不覆盖独立发现、范围外问题或更大重构",
+            "同一来源能力台账作为完成合同",
+            "未经重新授权不得静默加入实施范围",
+        ):
+            with self.subTest(handoff_fragment=fragment):
+                self.assertIn(fragment, absorption)
+
+    def test_hosted_product_research_separates_claims_trials_and_results(self) -> None:
+        hosted = PROJECT_RESEARCH_TEXT.split(
+            "### 没有源码的托管产品", 1
+        )[1].split("## 3. 先判断项目怎样产生价值", 1)[0]
+        for fragment in (
+            "官方文档、条款与产品声明",
+            "机器可读的能力或工具清单",
+            "实际渲染、导出或其它用户可见结果",
+            "额度或费用、可逆性、对现有项目和账号的污染",
+            "不等于已经取得再分发、嵌入目标仓库或长期商用的权利",
+            "素材库显示名、稳定或内部素材身份",
+            "当前项目真正采用了",
+            "普通本地仓库讲解不因此增加联网、登录或在线试用",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, hosted)
+
+    def test_adoption_handoff_preserves_non_weakenable_acceptance_items(
+        self,
+    ) -> None:
+        absorption = PROJECT_RESEARCH_TEXT.split(
+            "### 完整能力吸收研究",
+            1,
+        )[1].split("## 6. 用人话完成解释", 1)[0]
+        for fragment in (
+            "候选标题只是稳定索引，不是完成单位",
+            "候选标题不能替它下面的验收子项报完成",
+            "替代方案必须继续满足全部不可弱化的用户结果",
+            "把对应子项标为受阻或重新分类",
+            "说明差异并取得新的明确确认",
+            "总测试通过替未逐项关闭的子项背书",
+            "按稳定子项身份逐项回写完成证据与最终状态",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, absorption)
+
+    def test_adoption_subtracts_owned_capabilities_and_prices_operating_burden(
+        self,
+    ) -> None:
+        research_route = SKILL_TEXT.split(
+            "## 项目研究与讲解",
+            1,
+        )[1].split("## 项目基线与模板", 1)[0]
+        for fragment in (
+            "外部模型、运行时、包、CLI、SDK、daemon 或服务",
+            "references/external-tool-compatibility.md",
+            "references/user-environment-governance.md",
+            "只读采用建议不因此获得安装或配置权限",
+        ):
+            with self.subTest(route_fragment=fragment):
+                self.assertIn(fragment, research_route)
+
+        for fragment in (
+            "默认输入条件、必须支持的条件输入和明确排除的输入",
+            "目标结果链中每一阶段的现有所有者",
+            "现有所有者尚未承担的完整能力缺口",
+            "候选比较先做能力减法",
+            "账号、协议确认、凭据、联网要求、下载与模型体积、运行时与隐含依赖、平台、许可证、首次使用和升级责任",
+            "候选更完整、更准确或基准更强，不能自动成为默认路径",
+            "条件后端",
+            "完整能力缺口及候选为每项缺口新增的构成性能力",
+            "这是最终职责边界，不是把结果降级成临时的最小落地方案",
+            "采用位置：默认路径 / 条件后端 / 局部吸收 / 拒绝",
+        ):
+            with self.subTest(research_fragment=fragment):
+                self.assertIn(fragment, PROJECT_RESEARCH_TEXT)
+
+    def test_agent_first_comparison_selects_a_complete_machine_workflow(
+        self,
+    ) -> None:
+        comparison = PROJECT_RESEARCH_TEXT.split(
+            "#### 主要操作者是 Agent",
+            1,
+        )[1].split("### 完整能力吸收研究", 1)[0]
+        for fragment in (
+            "不能把来源产品的菜单、面板和手工工具数量直接改写成目标能力清单",
+            "模型或 Agent 需要作出的判断",
+            "确定性程序必须执行的变更",
+            "仍需人工承担的视觉或专业验收",
+            "inspect、plan 或 dry-run、apply、verify",
+            "稳定对象身份、输入输出 schema、错误与 blocking",
+            "事务、版本、撤销、恢复和并发保护",
+            "接受或拒绝及其正式记录",
+            "不表示只做一条能跑的最短路径",
+            "没有这些边界时，不能把“界面功能已经存在”算作 Agent 已具备该能力",
+            "不能因为 Agent 是主要操作者就移除最终画面预览、人工校准或正式视觉验收",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, comparison)
+
+        self.assertNotIn("PuppetLoom", comparison)
+        self.assertNotIn("Live2D", comparison)
+        self.assertNotIn(".moc3", comparison)
+
+    def test_self_evolution_is_explicit_and_project_paths_stop_at_result(
+        self,
+    ) -> None:
+        learning = read_reference(
+            "conversation-learning-and-self-evolution.md",
+            "skill-self-evolution-governance.md",
+        )
+        prevention = read_reference(
+            "change-prevention.md",
+            "change-prevention-state-and-capability.md",
+            "change-prevention-delivery-boundaries.md",
+            "change-prevention-verification.md",
+        )
+        remediation = read_reference(
+            "root-cause-remediation.md",
+            "root-cause-verification-and-closure.md",
+        )
+
+        self.assertIn("按用户最终结果分组", learning)
+        self.assertIn("先完整覆盖过程证据", learning)
+        self.assertIn("外层命令执行器超时", learning)
+        self.assertIn("成功经验和暴露的问题都属于候选", learning)
+        self.assertIn("高频问题模式或专项方法", learning)
+        self.assertIn("Project Steward 当前方法", prevention)
+        self.assertIn("实现完成后交付本次预防合同的实际结果并停止", prevention)
+        self.assertIn("完成项目结果并按已选路径停止", remediation)
+        self.assertIn(
+            "只有用户在请求开始时同时明确要求 Project Steward 自我进化",
+            prevention,
+        )
+        self.assertIn(
+            "用户在请求开始时同时明确要求 Project Steward 自我进化时",
+            remediation,
+        )
+        remediation_section = SKILL_TEXT.split(
+            "## 根因治理", 1
+        )[1].split("## 项目研究与讲解", 1)[0]
+        self.assertIn(
+            "实施才一次迁移全部生产者、边界和消费者，并退出旧架构",
+            remediation_section,
+        )
+
+    def test_architecture_governance_is_a_direct_active_capability(self) -> None:
+        reference = (
+            SKILL_ROOT
+            / "references"
+            / "architecture-cohesion-governance.md"
+        )
+        self.assertTrue(reference.is_file())
+        self.assertIn(
+            "references/architecture-cohesion-governance.md",
+            SKILL_TEXT,
+        )
+        text = reference.read_text(encoding="utf-8")
+        for fragment in (
+            "高内聚低耦合",
+            "语义重复",
+            "上帝模块",
+            "变化原因",
+            "公共表面",
+            "把函数移动到多个文件但保留一个暴露全部成员的巨型 facade",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, text)
+
+    def test_learning_updates_the_skill_and_preserves_project_truth(
+        self,
+    ) -> None:
+        learning = read_reference(
+            "conversation-learning-and-self-evolution.md",
+            "skill-self-evolution-governance.md",
+        )
+        for fragment in (
+            "先完整覆盖过程证据",
+            "再按用户最终结果分组",
+            "成功经验和暴露的问题都属于候选",
+            "写入权限由主路由的两阶段确认结果决定",
+            "只更新本轮行为实际影响的直接消费者",
+            "高频问题模式或专项方法",
+            "决定行为的协议字段、平台限制、生命周期顺序和版本范围",
+            "`archive/` 只保存历史与来源价值",
+            "不创建 `.project-steward/experience`",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, learning)
+
+        self.assertIn(
+            "项目自己的产品决定、架构事实和长期约束留在项目现有真源中",
+            SKILL_TEXT,
+        )
+        self.assertIn(
+            "references/conversation-learning-and-self-evolution.md",
+            SKILL_TEXT,
+        )
+
+    def test_harness_comparisons_control_one_variable_and_preserve_raw_evidence(
+        self,
+    ) -> None:
+        for fragment in (
+            "Harness 或调用路径的受控对照",
+            "每次只改变待比较的调用路径",
+            "`scenario_id`、标题、类别和期望标签保留在编排器与结果文件中",
+            "不发送给候选模型",
+            "使用隔离的会话、工作区和副作用目标",
+            "先证明每条候选路径按其正式协议运行",
+            "先修正实验协议并保留失败证据",
+            "不能把编排器缺陷算成模型质量",
+            "原始响应、结构化结果、最终用户可见正文、延迟、token",
+            "质量评审尽量盲化候选身份",
+            "一个指标领先不自动成为总冠军",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, EFFECTIVENESS_TEXT)
+
+
+class ProjectArchiveExtractionTests(unittest.TestCase):
+    def test_destination_root_is_required_and_no_hidden_fallback_is_created(
+        self,
+    ) -> None:
+        pwsh = shutil.which("pwsh")
+        if pwsh is None:
+            self.skipTest("pwsh is unavailable")
+
+        script = (
+            SKILL_ROOT / "scripts" / "extract_project_archive.ps1"
+        )
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            archive = root / "sample-project.zip"
+            with zipfile.ZipFile(archive, "w") as package:
+                package.writestr(
+                    "sample-project/README.md",
+                    "A real project result.",
+                )
+
+            completed = subprocess.run(
+                [
+                    pwsh,
+                    "-NoProfile",
+                    "-NonInteractive",
+                    "-File",
+                    str(script),
+                    "-ArchivePath",
+                    str(archive),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                timeout=10,
+            )
+
+            self.assertNotEqual(0, completed.returncode)
+            self.assertFalse((root / ".project-steward-extracted").exists())
+
+    def test_real_zip_is_extracted_and_returned_root_is_consumable(
+        self,
+    ) -> None:
+        pwsh = shutil.which("pwsh")
+        if pwsh is None:
+            self.skipTest("pwsh is unavailable")
+
+        script = (
+            SKILL_ROOT / "scripts" / "extract_project_archive.ps1"
+        )
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            archive = root / "sample-project.zip"
+            destination = root / "extracted"
+
+            with zipfile.ZipFile(archive, "w") as package:
+                package.writestr(
+                    "sample-project/README.md",
+                    "A real project result.",
+                )
+
+            completed = subprocess.run(
+                [
+                    pwsh,
+                    "-NoProfile",
+                    "-NonInteractive",
+                    "-File",
+                    str(script),
+                    "-ArchivePath",
+                    str(archive),
+                    "-DestinationRoot",
+                    str(destination),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            )
+
+            output_lines = [
+                line.strip()
+                for line in completed.stdout.splitlines()
+                if line.strip()
+            ]
+            self.assertTrue(output_lines)
+            project_root = Path(output_lines[-1])
+            readme = project_root / "README.md"
+            self.assertTrue(readme.is_file())
+            self.assertEqual(
+                "A real project result.",
+                readme.read_text(encoding="utf-8"),
+            )
+
+            readme.write_text("Preserved first extraction.", encoding="utf-8")
+            second = subprocess.run(
+                [
+                    pwsh,
+                    "-NoProfile",
+                    "-NonInteractive",
+                    "-File",
+                    str(script),
+                    "-ArchivePath",
+                    str(archive),
+                    "-DestinationRoot",
+                    str(destination),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            )
+            second_root = Path(
+                [
+                    line.strip()
+                    for line in second.stdout.splitlines()
+                    if line.strip()
+                ][-1]
+            )
+            self.assertNotEqual(project_root, second_root)
+            self.assertEqual(
+                "Preserved first extraction.",
+                readme.read_text(encoding="utf-8"),
+            )
+            self.assertTrue((second_root / "README.md").is_file())
+
+
+if __name__ == "__main__":
+    unittest.main()

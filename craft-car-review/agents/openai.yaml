@@ -1,0 +1,4 @@
+interface:
+  display_name: "Car 归档审核"
+  short_description: "独立核对汽车归档的原始证据、适用范围和目标位置，返回审核结论"
+  default_prompt: "Use $craft-car-review to first establish facts from the original sources alone, then review the complete Car archive plan in a second handoff and return evidence-backed findings without writing to Craft."

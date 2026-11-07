@@ -1,0 +1,4 @@
+interface:
+  display_name: "汽车线束 2D 线表提取与校核"
+  short_description: "从汽车线束二维图提取并核对线表，保留原图证据、配置条件与待确认项"
+  default_prompt: "使用 $harness-wire-list，按参考线表提取这些 2D 图纸，合并线束并核对端点，保留差异与原图来源。"

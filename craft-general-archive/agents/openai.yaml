@@ -1,0 +1,25 @@
+interface:
+  display_name: "Craft 通用归档（Archive / XV）"
+  short_description: "将学习、工作和个人资料归档到 Archive / XV，定位后预览确认"
+  default_prompt: "Use $craft-general-archive to find the right Archive or XV location for this content and archive it after confirmation; route Car content to the automotive specialist."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "craft-car"
+      description: "Craft MCP server for the user's Car space"
+      transport: "streamable_http"
+      url: "https://mcp.craft.do/links/EK1dSrQQrF6/mcp"
+    - type: "mcp"
+      value: "craft-main"
+      description: "Craft MCP server for the user's Archive space (formerly Main; connection identifier retained)"
+      transport: "streamable_http"
+      url: "https://mcp.craft.do/links/I5Ly4BzJSBh/mcp"
+    - type: "mcp"
+      value: "craft-xv"
+      description: "Craft MCP server for the user's XV space"
+      transport: "streamable_http"
+      url: "https://mcp.craft.do/links/Kf4WBH3zJz3/mcp"
+
+policy:
+  allow_implicit_invocation: true

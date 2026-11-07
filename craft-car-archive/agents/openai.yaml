@@ -1,0 +1,15 @@
+interface:
+  display_name: "Craft 汽车归档（Car）"
+  short_description: "将汽车资料归档到 Car，独立审核工程证据与适用范围后自动写入验收"
+  default_prompt: "Use $craft-car-archive to archive this material in Car: obtain an independent source-first review in two handoffs, validate the approved plan, write it, and verify the result before tagging the original."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "craft-car"
+      description: "Craft MCP server for the user's Car space"
+      transport: "streamable_http"
+      url: "https://mcp.craft.do/links/EK1dSrQQrF6/mcp"
+
+policy:
+  allow_implicit_invocation: true

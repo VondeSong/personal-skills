@@ -1,0 +1,13 @@
+interface:
+  display_name: "Hub 标签管家"
+  short_description: "基于 Hub 笔记证据精准分析、比较、解释并治理标签体系"
+  default_prompt: "使用 $hub-tag-steward 分析指定的 Hub 标签，区分重复、别名、相关和层级关系，并给出可核验证据。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hub"
+      description: "Hub 本地知识库与标签证据 MCP"
+
+policy:
+  allow_implicit_invocation: true

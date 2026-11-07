@@ -1,0 +1,4 @@
+interface:
+  display_name: "Obsidian 查询与归档"
+  short_description: "查询与归档 OS 和 Sources，按主题知识或原始素材分流，先读取目标库规则"
+  default_prompt: "使用 $obsidian-lifeos-archive 处理以下 Obsidian 任务：按用途定位 OS 或 Sources，先读取目标库 AGENTS.md，再执行只读查询或已授权的保存、整理与修改，并核验来源、附件和链接。"

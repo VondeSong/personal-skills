@@ -1,0 +1,7 @@
+{
+  "source_roots": ["D:\\01 Downloads", "D:\\00_Inbox"],
+  "destination_roots": ["D:\\01_Projects", "D:\\02_Areas", "D:\\03_Resources", "D:\\04_Archives"],
+  "state_root": "C:\\Users\\yongs\\.codex\\file-organizer",
+  "settle_seconds": 120,
+  "blocked_extensions": [".crdownload", ".part", ".partial", ".download", ".tmp", ".lck"]
+}

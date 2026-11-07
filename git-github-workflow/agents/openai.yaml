@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git / GitHub 工作流"
+  short_description: "接入仓库和开发总看板，执行交办任务并中文提交同步，由用户决定发布"
+  default_prompt: "使用 $git-github-workflow 按项目 AGENTS.md 接入仓库与看板，或执行明确交办的 Issue／路线图任务；发布时机由我决定。"
