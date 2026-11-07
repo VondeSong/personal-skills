@@ -8,6 +8,8 @@
 
 个人技能看板用于浏览已安装技能，按用途类别组织，并用彩色标签区分“自己开发、借鉴修改、第三方原版、来源待核实”；不按开发任务阶段管理。所有本机安装文件均保留，自建或改造过的继续备份，确认未改动的第三方技能仅记录来源和版本。
 
+卡片与列表只展示技能名称、用途类别和来源类型；版本、上游提交及备份依据放在详情和清单中，没有明确版本时留空。
+
 ## 第三方技能引用
 
 以下技能保留本机安装，安装目录不再由本仓库跟踪。这里的版本来自本机技能元数据；换电脑时按上游相应版本重新安装。
@@ -15,7 +17,7 @@
 | 技能 | 作者与来源 | 本机标示版本 | 安装与恢复入口 |
 | --- | --- | --- | --- |
 | Impeccable | Paul Bakaus / [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 4.8.0 | [官方 4.8.0 发行页](https://github.com/pbakaus/impeccable/releases/tag/skill-v4.8.0)，按作者说明恢复 Codex 适用版本 |
-| IP as Logo | s1dashu / [ip-as-logo-skill](https://github.com/s1dashu/ip-as-logo-skill) | 未标记版号；固定提交 `565d7418` | [对应源版本](https://github.com/s1dashu/ip-as-logo-skill/tree/565d7418e3dbf187a3a50a012963c95d0d64747d)，已逐文件核对 5/5 一致 |
+| IP as Logo | s1dashu / [ip-as-logo-skill](https://github.com/s1dashu/ip-as-logo-skill) | 固定上游提交 `565d7418` | [对应源版本](https://github.com/s1dashu/ip-as-logo-skill/tree/565d7418e3dbf187a3a50a012963c95d0d64747d)，已逐文件核对 5/5 一致 |
 
 本次已检查 29 个技能：15 个本机专用编写、11 个借鉴修改、2 个第三方原版引用，1 个原始来源待核实并保留源码。详细依据见 [SKILLS.md](SKILLS.md)。Jakub 系列保留 Windows/Codex 适配，Taste 保留个人调用策略，Stageshow 和 Project Steward 保留本机改造，不能将这些改动误判为上游原版。
 
