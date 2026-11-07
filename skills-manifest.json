@@ -160,8 +160,8 @@
       "version": null,
       "source": null,
       "source_ref": null,
-      "description": "Git/GitHub 接入、默认检查后自动中文提交同步与协作流程",
-      "evidence": "本会话与相关项目聊天建立并维护的个人 Git/GitHub 约定；2026-11-07 用户将检查后自动中文提交同步设为技能默认，新项目接入自动写入 AGENTS.md，发布仍由用户决定。"
+      "description": "Git/GitHub 接入、检查后集中中文提交推送与定向看板更新",
+      "evidence": "本会话与相关项目聊天建立并维护的个人 Git/GitHub 约定；2026-11-07 用户将检查后自动中文提交同步设为技能默认，并要求合并收尾、复用有效读取和检查、减少模型往返；保留范围审核、暂存检查、远端核验与验收约束，发布仍由用户决定。"
     },
     {
       "name": "harness-wire-list",
