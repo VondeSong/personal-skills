@@ -1,6 +1,8 @@
 # Codex-managed system skills and local setup records
 /.system/
 /.local/
+# Unmodified third-party skill; source and version are recorded in README.md
+/impeccable/
 .serena/
 .qa/
 
