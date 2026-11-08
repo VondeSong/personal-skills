@@ -339,7 +339,8 @@
     "id": "PVT_kwHOAzsX5M4Bqk5F",
     "fields": {
       "用途类别": "PVTSSF_lAHOAzsX5M4Bqk5Fzho7oZ4",
-      "来源类型": "PVTSSF_lAHOAzsX5M4Bqk5Fzho7oag"
+      "来源类型": "PVTSSF_lAHOAzsX5M4Bqk5Fzho7oag",
+      "简述": "PVTF_lAHOAzsX5M4Bqk5FzhpAmMc"
     },
     "views": [
       {
@@ -408,6 +409,7 @@
     ],
     "visibleFields": [
       "Title",
+      "简述",
       "用途类别",
       "来源类型"
     ]
