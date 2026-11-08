@@ -20,7 +20,7 @@
 | `craft-car-review` | 知识与归档 | 自己开发 | 源码备份 | — | Craft Car 归档结果独立审核 |
 | `craft-general-archive` | 知识与归档 | 自己开发 | 源码备份 | — | Craft Archive / XV 通用归档 |
 | `craft-page-visualizer` | 知识与归档 | 自己开发 | 源码备份 | — | Craft 页面转可编辑白板 |
-| `design-reference-library` | 知识与归档 | 自己开发 | 源码备份 | — | 设计参考案例的归档与检索 |
+| `design-reference-library` | 知识与归档 | 自己开发 | 源码备份 | — | 设计参考案例的归档、交互细节核验与检索 |
 | `design-taste-frontend` | 界面与视觉 | 借鉴修改 | 源码备份 | tasteskill v2 | 网页与应用的视觉方向与审美评审 |
 | `eagle-library-organizer` | 知识与归档 | 自己开发 | 源码备份 | — | Eagle 素材库文件夹与标签治理 |
 | `explain-interface` | 界面与视觉 | 借鉴修改 | 源码备份 | — | 解析界面的实现方式与组件结构 |
