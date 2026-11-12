@@ -20,3 +20,5 @@ When exact sources cannot be checked, label the recommendation or availability a
 A routine spacing or copy change does not require rereading every source.
 
 Chinese typography references were reviewed separately on 2026-10-05; see [Chinese typography](chinese-typography.md#evidence-and-scope) for primary guidance and the explicitly secondary article. This does not refresh the review date of unrelated platform guidance above.
+
+Cross-platform product-style research was reviewed separately on 2026-11-12; see [Initial cross-platform design analysis](cross-platform-apple-style-initial-analysis.md) for dated Craft examples, Codex / Claude Code workflow references, Apple / Android guidance, and the distinction between sourced facts, design interpretation, and candidate directions. This preliminary analysis does not change the skill's rule strengths, token contract, version, or the review date of unrelated guidance above.

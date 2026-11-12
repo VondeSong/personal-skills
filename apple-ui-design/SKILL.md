@@ -27,6 +27,7 @@ Read only the references needed for this task:
 | Chinese or mixed Chinese/Latin typography, especially editorial web layouts | [Chinese typography](references/chinese-typography.md) |
 | Implementing, redesigning, or validating interactions | Relevant checks in [Acceptance](references/acceptance.md) |
 | AI suggestions, review queues, or file/media cleanup | [AI workflows](references/ai-workflows.md) |
+| Preliminary analysis of Apple-like polish, product identity, or Craft / Codex / Claude Code across platforms | [Initial cross-platform design analysis](references/cross-platform-apple-style-initial-analysis.md) — research and candidate directions, not additional requirements |
 | API/version-sensitive advice or disputed convention | Relevant official link in [Sources](references/sources.md) |
 | Maintaining or evaluating this skill | [Behavioral cases](EXAMPLES.md) |
 
