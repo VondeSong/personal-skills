@@ -28,6 +28,7 @@ Read only the references needed for this task:
 | Implementing, redesigning, or validating interactions | Relevant checks in [Acceptance](references/acceptance.md) |
 | AI suggestions, review queues, or file/media cleanup | [AI workflows](references/ai-workflows.md) |
 | Preliminary analysis of Apple-like polish, product identity, or Craft / Codex / Claude Code across platforms | [Initial cross-platform design analysis](references/cross-platform-apple-style-initial-analysis.md) — research and candidate directions, not additional requirements |
+| Mobile follow-up to Apple-inspired cross-platform research: phone navigation, input, task continuity, and native / web differences | [Initial mobile cross-platform plan](references/mobile-cross-platform-initial-plan.md) — sourced research and candidate scenarios, not implemented behavior or additional requirements |
 | API/version-sensitive advice or disputed convention | Relevant official link in [Sources](references/sources.md) |
 | Maintaining or evaluating this skill | [Behavioral cases](EXAMPLES.md) |
 
