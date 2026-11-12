@@ -29,7 +29,7 @@ Read only the references needed for this task:
 | AI suggestions, review queues, or file/media cleanup | [AI workflows](references/ai-workflows.md) |
 | Preliminary analysis of Apple-like polish, product identity, or Craft / Codex / Claude Code across platforms | [Initial cross-platform design analysis](references/cross-platform-apple-style-initial-analysis.md) — research and candidate directions, not additional requirements |
 | Mobile follow-up to Apple-inspired cross-platform research: phone navigation, input, task continuity, and native / web differences | [Initial mobile cross-platform plan](references/mobile-cross-platform-initial-plan.md) — sourced research and candidate scenarios, not implemented behavior or additional requirements |
-| Visual follow-up on desktop / mobile palettes, themes, typography, icons, geometry, shadows, and materials | [Initial desktop and mobile visual-style plan](references/desktop-mobile-visual-style-initial-plan.md) — evidence and candidate combinations; retain the existing platform scope and token contract |
+| New visual design, substantial visual redesign, or visual follow-up on desktop / mobile | [Desktop and mobile visual-style plan](references/desktop-mobile-visual-style-initial-plan.md) — choose a coherent direction and component composition; [optional candidate palettes](references/visual-presets.json) provide custom light/dark examples, not vendor tokens or replacements for the existing contract |
 | Complete application scenes or connected screens: content editing, conversation, or task review | [Application scenarios](references/application-scenarios.md) — compose relevant objects, components, visual roles, states, recovery, and transitions; use only the parts the task needs |
 | API/version-sensitive advice or disputed convention | Relevant official link in [Sources](references/sources.md) |
 | Maintaining or evaluating this skill | [Behavioral cases](EXAMPLES.md) |
@@ -66,6 +66,7 @@ A focused decision usually benefits from one emphasized action; continuous work 
 
 ### 3. Choose appearance and material
 
+For new visual work or substantial visual redesign, choose a coherent direction from the user's references and existing product: surface temperature, accent placement, content versus control typography, and boundary/elevation treatment. Use the [visual-style plan](references/desktop-mobile-visual-style-initial-plan.md#44-先选定一套完整的视觉方向) to turn style preferences into a palette and a concrete component composition. Bounded fixes retain the established direction.
 Distinguish content from navigation, controls, and overlays where those layers actually exist.
 Use Liquid Glass principally for the navigation/control layer; use ordinary surfaces or standard materials for content. Avoid manually restyling system controls merely to simulate glass.
 For custom glass, consult the materials source and verify behavior over changing content. RGBA plus blur is only a web approximation.
@@ -96,6 +97,7 @@ Choose the smallest output that completes the user's request. Do not produce eve
 **Critique:** prioritize concrete findings. For each, give the observed issue, user impact, replacement, and how to check it. Label uncertain findings. Do not invent defects to fill a list.
 
 **Design/spec:** state platform, viewport assumption, content hierarchy, layout behavior, component choices, and relevant states. Give numeric values where they help implementation, with units and whether they are system defaults or custom suggestions.
+When appearance is part of the request, resolve the palette, color emphasis, reading/control typography, and boundary treatment in a representative component group; style adjectives alone are not a visual specification.
 For connected scenes, make the affected objects, component/visual-role mappings, focus/scroll continuity, and unfinished capability dependencies explicit enough to implement. Distinguish a complete written specification from a rendered or exercised result.
 
 **Implementation:** make the requested change in the existing stack. Map design roles to native components or the existing web component system. Verify the affected behavior; report actual checks and material limitations. Code generation is not proof of visual or accessibility quality.

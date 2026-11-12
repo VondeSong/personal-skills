@@ -5,6 +5,23 @@ Evaluate observable decisions rather than exact wording, layout coordinates, or 
 For an independent pass, provide only the input and relevant raw artifact plus SKILL.md; keep the acceptance notes with the evaluator.
 A written response tests guidance and routing. Runtime claims additionally require implementation evidence.
 
+## Contents
+
+- [Reader with no primary action](#1-reader-with-no-primary-action)
+- [Dense desktop editor](#2-dense-desktop-editor)
+- [iPad adaptation and large text](#3-ipad-adaptation-and-large-text)
+- [Custom web colors and glass](#4-custom-web-colors-and-glass)
+- [AI partial completion](#5-ai-partial-completion)
+- [Apple-inspired marketing](#6-apple-inspired-marketing)
+- [Bounded change](#7-bounded-change)
+- [Empty queue and critique uncertainty](#8-empty-queue-and-critique-uncertainty)
+- [Unsupported platform specialization](#9-unsupported-platform-specialization)
+- [Chinese editorial typography across widths](#10-chinese-editorial-typography-across-widths)
+- [Continuous content editing](#11-continuous-content-editing)
+- [Conversation during streaming](#12-conversation-during-streaming)
+- [Review workspace with partial application](#13-review-workspace-with-partial-application)
+- [Coherent visual direction](#14-coherent-visual-direction)
+
 ## 1. Reader with no primary action
 
 **Input:** “设计一个 iPhone 离线阅读页。正文是核心，只保留返回、字号和书签，没有购买或开始阅读按钮。”
@@ -107,3 +124,11 @@ A written response tests guidance and routing. Runtime claims additionally requi
 **Expected:** Tie task, selected objects, summary, concrete changes, feedback and action scope together; preserve selection and outcome across detail navigation; reuse the AI state model and appropriate component composition.
 **Fail:** Shows only summary cards, retries successful work, hides decisive change details on mobile, or claims the design has already passed runtime/accessibility checks.
 **Check:** Trace a selected item's evidence, the failed-item retry, and return to the original task. Compare state meaning and visual hierarchy across desktop/mobile without requiring identical layouts.
+
+## 14. Coherent visual direction
+
+**Input:** “为中文资料与 AI 会话应用设计主工作区，配色要优雅舒服，参考 Craft、Claude、Codex。保留现有信息结构，请给一套具体视觉方向，呈现同一内容的浅色与深色效果，并兼顾桌面和手机。”
+
+**Expected:** Converts references into an explicit surface temperature, color emphasis, content/control typography and boundary treatment; applies a coherent palette to a concrete component group. Reuses existing product styling or deliberately chooses a custom candidate. Distinguishes product evidence from proposed values.
+**Fail:** Gives only style adjectives, treats blue-gray tokens as the only valid style, makes every icon/action equally colorful, mechanically applies one type profile to the entire screen, or claims contrast calculations alone prove visual quality.
+**Check:** Compare real content across themes and widths; inspect the weight of the frame versus content, selection versus focus, and neutral/colored action choices. Only report rendered or exercised states actually inspected. Do not treat one candidate palette as a new universal rule.

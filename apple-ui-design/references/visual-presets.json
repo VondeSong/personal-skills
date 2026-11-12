@@ -1,0 +1,126 @@
+{
+  "status": "candidate",
+  "reviewed": "2026-11-12",
+  "scope": "Optional custom web and mockup palettes. These are original design candidates, not official Craft, Claude, Codex or Apple tokens. Existing product themes take precedence.",
+  "baseContract": "../TOKENS.json",
+  "usage": "Merge paletteOverrides into the selected base light/dark palette for comparison; componentTokens are local example roles and must be mapped explicitly. Interactive row titles and metadata use the checked textPrimary/textSecondary roles. textTertiary is only checked on the base neutral surfaces, not on row hover/pressed backgrounds. Do not replace TOKENS.json or assume platform appearance and preference handling are implemented.",
+  "profiles": [
+    {
+      "id": "soft-neutral",
+      "name": "柔白中性",
+      "intent": "Clear document and work surfaces, neutral primary actions, restrained blue links and selection.",
+      "light": {
+        "paletteOverrides": {
+          "bgCanvas": "#F4F5F7",
+          "bgContent": "#FFFFFF",
+          "bgSecondary": "#F0F1F3",
+          "textPrimary": "#24262B",
+          "textSecondary": "#61656D",
+          "textTertiary": "#686C74",
+          "separator": "#E0E3E8",
+          "controlBorder": "#7B8088",
+          "focusRing": "#3F648C",
+          "accent": "#365F8C",
+          "onAccent": "#FFFFFF",
+          "selectionBg": "#E7EBF1",
+          "selectionText": "#263C56"
+        },
+        "componentTokens": {
+          "rowHoverBg": "#ECEFF3",
+          "rowPressedBg": "#E1E5EB",
+          "primaryButtonBg": "#292C32",
+          "primaryButtonText": "#FFFFFF",
+          "primaryButtonHoverBg": "#3C4048",
+          "primaryButtonPressedBg": "#1C1E23"
+        }
+      },
+      "dark": {
+        "paletteOverrides": {
+          "bgCanvas": "#17181B",
+          "bgContent": "#1E2024",
+          "bgSecondary": "#27292E",
+          "textPrimary": "#E9EBEF",
+          "textSecondary": "#B2B6BF",
+          "textTertiary": "#A1A6B0",
+          "separator": "#373B42",
+          "controlBorder": "#828893",
+          "focusRing": "#A8C6EE",
+          "accent": "#A8C6EE",
+          "onAccent": "#172333",
+          "selectionBg": "#343E4D",
+          "selectionText": "#E0EBFA"
+        },
+        "componentTokens": {
+          "rowHoverBg": "#2C3036",
+          "rowPressedBg": "#373D45",
+          "primaryButtonBg": "#E9EBEF",
+          "primaryButtonText": "#202227",
+          "primaryButtonHoverBg": "#FFFFFF",
+          "primaryButtonPressedBg": "#CDD2DC"
+        }
+      }
+    },
+    {
+      "id": "warm-paper",
+      "name": "暖纸中性",
+      "intent": "A lightly warm reading and conversation surface, neutral primary actions, and brown accents kept distinct from error states.",
+      "light": {
+        "paletteOverrides": {
+          "bgCanvas": "#F5F2EC",
+          "bgContent": "#FCFAF6",
+          "bgSecondary": "#EDE9E1",
+          "textPrimary": "#2D2A26",
+          "textSecondary": "#655E55",
+          "textTertiary": "#70685F",
+          "separator": "#DDD6CA",
+          "controlBorder": "#8A7D6D",
+          "focusRing": "#885138",
+          "accent": "#8B4E34",
+          "onAccent": "#FFFCF8",
+          "selectionBg": "#E8DDD0",
+          "selectionText": "#553E2B"
+        },
+        "componentTokens": {
+          "rowHoverBg": "#F0EAE1",
+          "rowPressedBg": "#E5DBCE",
+          "primaryButtonBg": "#37322D",
+          "primaryButtonText": "#FCFAF6",
+          "primaryButtonHoverBg": "#4C443B",
+          "primaryButtonPressedBg": "#27231F"
+        }
+      },
+      "dark": {
+        "paletteOverrides": {
+          "bgCanvas": "#1D1B18",
+          "bgContent": "#25221E",
+          "bgSecondary": "#2E2A25",
+          "textPrimary": "#EEE7DC",
+          "textSecondary": "#BEB4A6",
+          "textTertiary": "#AFA494",
+          "separator": "#443D33",
+          "controlBorder": "#928675",
+          "focusRing": "#E1AC86",
+          "accent": "#E1AC86",
+          "onAccent": "#302116",
+          "selectionBg": "#49392D",
+          "selectionText": "#F2D9BE"
+        },
+        "componentTokens": {
+          "rowHoverBg": "#352F28",
+          "rowPressedBg": "#40372D",
+          "primaryButtonBg": "#EEE7DC",
+          "primaryButtonText": "#2B261F",
+          "primaryButtonHoverBg": "#FFF8EF",
+          "primaryButtonPressedBg": "#D8CBB7"
+        }
+      }
+    }
+  ],
+  "componentPairChecks": [
+    { "foreground": "textPrimary", "backgrounds": ["rowHoverBg", "rowPressedBg"], "minimum": 4.5 },
+    { "foreground": "textSecondary", "backgrounds": ["rowHoverBg", "rowPressedBg"], "minimum": 4.5 },
+    { "foreground": "primaryButtonText", "backgrounds": ["primaryButtonBg", "primaryButtonHoverBg", "primaryButtonPressedBg"], "minimum": 4.5 },
+    { "foreground": "focusRing", "backgrounds": ["rowHoverBg", "rowPressedBg"], "minimum": 3 }
+  ],
+  "limitations": "Opaque sRGB pair calculations do not prove overall beauty, translucent compositing, arbitrary state variants, typography, focus geometry, device rendering or accessible interaction. Keep status foreground/background pairs from the base contract unless deliberately redesigned and rechecked. Increased-contrast behavior needs its own component mapping; do not infer it from these normal appearance examples."
+}

@@ -6,6 +6,7 @@ Native implementations use semantic system roles and component metrics first. Ex
 ## Typography and units
 
 Select webTypography.desktop for compact productivity UI, mobile for touch-oriented layouts, or editorial as a starting point for marketing/readable prose.
+Select by text role within the screen: compact controls can coexist with a more spacious document or conversation body. Do not apply one profile mechanically to the entire app or inherit a marketing headline merely to improve body readability; see the [visual composition example](desktop-mobile-visual-style-initial-plan.md#84-一个完成的视觉组合示例).
 Sizes and line heights are CSS px reference values; convert to scalable CSS appropriately. The editorial title must adapt to narrow viewports.
 Native points and physical screenshot pixels are distinct. Native text maps to system text styles, not these profiles.
 nativeControlGuidance records point-based platform guidance; webControlGuidance contains separate custom web defaults. Neither visible icon size nor visual control size alone proves the effective hit region.
