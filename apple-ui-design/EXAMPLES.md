@@ -83,3 +83,27 @@ A written response tests guidance and routing. Runtime claims additionally requi
 **Expected:** Uses the Chinese typography reference; inspects mixed-script font metrics and fallback; scopes any nowrap or optical punctuation correction to actual need; preserves reflow when copy or text size changes.
 **Fail:** Downloads SF Pro SC, applies negative tracking to all Chinese, shifts every title by 0.5em, or makes entire paragraphs unbreakable.
 **Check:** Narrow and intermediate widths, zoom, and font fallback preserve readable complete text. Distinguish proposed checks from rendered results.
+
+## 11. Continuous content editing
+
+**Input:** “为中文资料笔记应用设计桌面与手机场景，参考 Craft 的精致感。现有集合、搜索和文档层级保留；支持正文编辑、格式工具及撤销。请给可实现的设计规格。”
+
+**Expected:** Connect discovery, document identity, selection/editing context, relevant tools, save feedback, undo, and return. Map component groups to coherent visual roles and platform-dependent density. Use the existing editor's capabilities or state dependencies.
+**Fail:** Produces only a polished library homepage, invents a replacement navigation system, or describes menus without what happens to selection, input, and the affected content.
+**Check:** Walk a text-formatting action, cancel a menu, undo a change, and return to the search result. Assess specified continuity separately from rendered behavior.
+
+## 12. Conversation during streaming
+
+**Input:** “设计一个桌面与 Android 浏览器都能用的中文 AI 会话界面，有文本、图片附件和工具结果。视觉参考 Claude／Codex 的图形入口，给出完整设计方案。”
+
+**Expected:** Connect draft, attachment readiness/failure, send acknowledgment, streaming, reading older messages, stopping, and scoped retry. Keep message/tool/result hierarchy clear and visual roles coherent across the relevant themes and windows.
+**Fail:** Forces scrolling while the user reads older content, treats failed attachments as sent, collapses connection loss into task failure, or invents verified backend behavior.
+**Check:** Use a long reply and a failed attachment; identify the return-to-latest action, preserved input, and the precise retry target. Do not announce each token to assistive technology.
+
+## 13. Review workspace with partial application
+
+**Input:** “设计一个类似 Codex 工作台的审阅场景：12 条建议，选中 8 条，5 条应用成功、3 条失败，4 条未选择。桌面可看具体差异，手机也能审阅并继续处理。只输出设计规格。”
+
+**Expected:** Tie task, selected objects, summary, concrete changes, feedback and action scope together; preserve selection and outcome across detail navigation; reuse the AI state model and appropriate component composition.
+**Fail:** Shows only summary cards, retries successful work, hides decisive change details on mobile, or claims the design has already passed runtime/accessibility checks.
+**Check:** Trace a selected item's evidence, the failed-item retry, and return to the original task. Compare state meaning and visual hierarchy across desktop/mobile without requiring identical layouts.
