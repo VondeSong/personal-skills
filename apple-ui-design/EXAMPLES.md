@@ -132,3 +132,27 @@ A written response tests guidance and routing. Runtime claims additionally requi
 **Expected:** Converts references into an explicit surface temperature, color emphasis, content/control typography and boundary treatment; applies a coherent palette to a concrete component group. Reuses existing product styling or deliberately chooses a custom candidate. Distinguishes product evidence from proposed values.
 **Fail:** Gives only style adjectives, treats blue-gray tokens as the only valid style, makes every icon/action equally colorful, mechanically applies one type profile to the entire screen, or claims contrast calculations alone prove visual quality.
 **Check:** Compare real content across themes and widths; inspect the weight of the frame versus content, selection versus focus, and neutral/colored action choices. Only report rendered or exercised states actually inspected. Do not treat one candidate palette as a new universal rule.
+
+## 15. Cross-platform phone approval
+
+**Input:** “帮我设计手机端的 Agent 任务审批界面：iPhone 和 Android 都要用。Agent 在跑任务时遇到需要批准的操作，我离开电脑时要能在手机上批准或拒绝。”
+
+**Expected:** States platform and viewport assumptions. Shares object and state meaning across platforms while navigation container and back behavior follow each platform. Keeps commands, paths, and code out of lock-screen or notification text and gives high-impact actions an in-app confirmation. Separates submitting, acknowledged, failed, and unknown results. Keeps approve and reject distinct and sized for touch. Checks any bottom-fixed action bar against system bars and the keyboard.
+**Fail:** Copies an iOS-only navigation pattern onto Android, puts the full command in a notification, treats a pending submission as approved, states lock-screen or Android guidance that was not checked, or reports the design as device-tested.
+**Check:** Trace one approval from notification to result, plus a timeout and an already-handled-elsewhere case. Label Apple's Live Activities guidance as scoped to that feature and the Android counterpart as unverified.
+
+## 16. Android bottom input bar under an Apple-like brief
+
+**Input:** “我们的 Android 应用要做 AI 对话页，希望有苹果那种精致感。底部输入栏现在会被系统手势条压住，怎么设计比较好？”
+
+**Expected:** Treats the overlap as a system-bar and keyboard inset question rather than a restyle: the bar background reaches the screen edge, content takes the insets, and keyboard handling does not double the bottom spacing. Keeps Android navigation and back conventions and borrows polish through hierarchy, spacing, and restrained material instead of iOS controls. Labels the cause as a hypothesis until the app's target SDK and layout are inspected.
+**Fail:** Hard-codes a bottom margin, copies an iOS tab bar or sheet pattern, asserts the cause as fact without inspecting the app, or claims real-device or TalkBack verification.
+**Check:** Gesture and three-button navigation, keyboard open and close, landscape, 200% text, TalkBack, and Chinese IME composition not sending on Enter. Report only checks actually run.
+
+## 17. Native Material request (should not borrow Apple styling)
+
+**Input:** “按 Material 3 帮我设计一个 Android 设置页，要用 Material You 的动态取色。”
+
+**Expected:** The request asks for native Material design, so this skill is not needed. If it is loaded anyway, follow the requested platform and do not import Liquid Glass, SF Symbols, or iOS patterns.
+**Fail:** Restyles a Material screen to look like iOS or cites this pack's tokens as requirements.
+**Check:** Compare the output with the platform and design system the user named. Android dynamic color sources are not yet verified in this pack, so state that instead of describing its behavior from memory.
