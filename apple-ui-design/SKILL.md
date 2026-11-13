@@ -1,6 +1,6 @@
 ---
 name: apple-ui-design
-description: Design, critique, and implement macOS, iOS, and iPadOS interfaces, or explicitly Apple-inspired web UI. Use for Apple-platform layout, interaction, screenshots, and design handoff. Preserve the target platform and existing product system; do not impose Apple styling on unrelated UI work.
+description: Design, critique, and implement macOS, iOS, and iPadOS interfaces, or explicitly Apple-inspired web UI, including cross-platform products (iOS, Android, mobile web) that want Apple-like polish. Use for Apple-platform layout, interaction, screenshots, and design handoff. Preserve the target platform and existing product system; do not impose Apple styling on unrelated UI work or on Android work that only asks for native Material design.
 metadata:
   version: "3.1"
   sources-reviewed: "2026-09-10"

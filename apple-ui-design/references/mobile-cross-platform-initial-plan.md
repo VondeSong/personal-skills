@@ -304,7 +304,7 @@ Web 的 `100vh`、动态视口单位或 `position: fixed` 都不能单独证明�
 | # | 缺口 | 为什么重要 | 候选补法 | 状态 |
 | --- | --- | --- | --- | --- |
 | 1 | 缺少实机取证 | 三个产品的结论主要来自文档与发布说明；§3.2 的“两个平台都好看”没有 Android 实测 | 用 §9 的场景在 iPhone、Android、移动 Web 上各取截图与录屏，记录导航容器、返回、键盘、200% 字号、深色模式和中文字体的实际回退 | 需要设备或素材，文档调研无法替代 |
-| 2 | Android 承接偏薄 | §6 只提到边到边。官方说明：面向 SDK 35 的应用在 Android 15 起默认边到边，内容会绘制到系统栏之后，该页面举的例子正是底部输入栏被导航栏遮挡[^android-e2e]，与键盘和输入流程直接相关。另外“品牌色是否让位于系统动态取色”“是否沿用 Material 组件”还不是决策项 | 在 §6、§10.2 的验收场景加入“目标 SDK 35 下底部输入栏与手势条的关系”；把品牌色与系统取色列为待决策项 | 边到边已核实；系统动态取色的官方页面本次未能读取，待核实 |
+| 2 | Android 承接偏薄 | §6 只提到边到边。官方说明：Android 15 起应用默认边到边，内容会绘制到系统栏之后；该页面的示例应用以 SDK 35 为目标后，底部输入栏被导航栏遮挡[^android-e2e]，与键盘和输入流程直接相关。另外“品牌色是否让位于系统动态取色”“是否沿用 Material 组件”还不是决策项 | 在 §6、§10.2 的验收场景加入“目标 SDK 35 下底部输入栏与手势条的关系”；把品牌色与系统取色列为待决策项 | 边到边已核实；系统动态取色的官方页面本次未能读取，待核实 |
 | 3 | 手机审批与敏感信息 | §9.3 要求审批展示对象和影响，但没有涉及锁屏可见性、误触和再确认。Apple 在 Live Activities 指南中提醒：锁屏与常亮显示可能被旁人看到，敏感内容应显示无害摘要、点开应用再看；互动控件尽量只留一个，以免误点[^apple-live] | 审批类通知默认不显示命令、路径、代码片段；高影响动作在应用内再确认；批准与拒绝之间留足间距 | Apple 部分为官方指导，仅针对 Live Activities，不能外推到所有通知；Android 对应指导未核实 |
 | 4 | 长任务的系统级呈现 | §7.3 只写了通知。Live Activities 适用于有明确起止、一般不超过八小时的任务，仅在有新内容时更新，任务结束就应结束，并避免对同一更新同时发推送[^apple-live]；Agent 任务不一定满足这些条件 | 先判断“监督 Agent”是否符合该类任务；不符合就回到普通通知加应用内任务列表 | iOS 部分已核实；Android 进行中通知与 Live Updates 的官方页面本次未能读取，待核实 |
 | 5 | 系统边缘手势冲突 | §4.2 讲了返回，没讲内容中的横向手势（轮播、横向滚动的 diff、抽屉）与系统边缘返回的冲突 | 在 §10.2“平台”一行补“边缘滑动冲突”检查 | 验收场景提议，没有一手来源 |
@@ -376,5 +376,5 @@ Web 的 `100vh`、动态视口单位或 `position: fixed` 都不能单独证明�
 [^web-online]: MDN Web Docs, [Navigator: onLine property](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine)，网络提示的不可靠性及使用边界。
 [^apple-materials]: Apple HIG, [Materials](https://developer.apple.com/design/human-interface-guidelines/materials)，导航／控制与内容材质的角色及系统设置响应。
 [^mdn-system-ui]: MDN Web Docs, [font-family](https://developer.mozilla.org/docs/Web/CSS/font-family)，`system-ui` 取平台默认界面字体，及其面向界面元素、不宜用于大段正文的提示；2026-11-12 核对。
-[^android-e2e]: Android Developers, [Handle edge-to-edge enforcements in Android 15](https://developer.android.com/codelabs/edge-to-edge)，面向 SDK 35 的应用默认边到边、内容绘制到系统栏之后，以及底部输入栏被遮挡的示例；2026-11-12 核对。
+[^android-e2e]: Android Developers, [Handle edge-to-edge enforcements in Android 15](https://developer.android.com/codelabs/edge-to-edge)，Android 15 起应用默认边到边、内容绘制到系统栏之后，以及示例应用以 SDK 35 为目标后底部输入栏被遮挡的情形；页面未单独说明强制是否只针对 SDK 35；2026-11-12 首次核对，2026-11-13 复核。
 [^apple-live]: Apple HIG, [Live Activities](https://developer.apple.com/design/human-interface-guidelines/live-activities)，适用任务的时长、敏感信息、互动控件数量，以及更新与结束的指导；页面变更记录最近一条为 2026-10-13；2026-11-12 核对。
